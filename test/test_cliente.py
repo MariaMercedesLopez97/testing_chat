@@ -2,8 +2,8 @@ import pytest
 import socket
 import threading
 import time
-from client import ChatClient
-from server import ChatServer
+from src.client import ChatClient
+from src.server import ChatServer
 
 @pytest.fixture
 def chat_server():
