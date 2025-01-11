@@ -1,143 +1,119 @@
-# Sistema de Chat Cliente-Servidor
+# Chat en Tiempo Real con Python
 
-## Descripción
-Sistema de chat que permite la comunicación en tiempo real entre múltiples clientes a través de un servidor centralizado. El proyecto está desarrollado en Python y utiliza sockets para la comunicación en red.
-
-## Características
-- Conexión simultánea de múltiples clientes
-- Validación de nicknames únicos
-- Broadcast de mensajes
-- Manejo robusto de desconexiones
-- Suite completa de pruebas unitarias y de integración
+Este proyecto implementa un sistema de chat en tiempo real utilizando sockets en Python, con pruebas unitarias y de integración.
 
 ## Requisitos
-- Python 3.7+
-- pytest
-
-## Instalación
-1. Clonar el repositorio
-git clone https://github.com/tu-usuario/chat-system.git
-2. Entrar al directorio
-cd chat-system
-3. Instalar las dependencias con `pip install -r requirements.txt`
-4. Ejecutar los tests con `pytest`
-
+pip install -r requirements.txt
 
 ## Estructura del Proyecto
-```
-chat-system/
-│
-├── server.py          # Implementación del servidor
-├── client.py          # Implementación del cliente
-├── test_server.py     # Pruebas del servidor
-└── test_cliente.py    # Pruebas del cliente
-```
+chat_project/
+├── server.py # Servidor del chat
+├── client.py # Cliente del chat
+├── test_server.py # Pruebas del servidor
+├── test_client.py # Pruebas del cliente
+└── requirements.txt # Dependencias del proyecto
 
-## Ejecución
-### Iniciar el Servidor
-```python
-from server import ChatServer
 
-server = ChatServer(host='localhost', port=55555)
-server.start_server()
-```
+## Características
 
-### Iniciar el Cliente
-```python
-from client import ChatClient
-
-client = ChatClient(host='localhost', port=55555)
-client.connect('nickname')
-```
-
-## Pruebas
-Para ejecutar las pruebas, ejecuta el siguiente comando:
-```
-pytest
-```
-## Ejecutar pruebas específicas
-```
-pytest test_cliente.py
-pytest test_server.py
-```
-## Funcionalidades Principales
-### Servidor (server.py)
-- Gestión de conexiones de clientes
-- Broadcast de mensajes
-- Manejo de desconexiones
-- Validación de nicknames únicos
-### Cliente (client.py)
-- Conexión al servidor
-- Validación de nickname
-- Envío de mensajes
-- Manejo de errores de conexión
-
-## Pruebas
-### Pruebas Unitarias
+- Chat en tiempo real
+- Múltiples clientes simultáneos
 - Validación de nicknames
-- Manejo de mensajes
-- Conexiones de clientes
-### Pruebas de Integración
-- Comunicación entre múltiples clientes
-- Desconexiones abruptas
-- Pruebas de carga
+- Manejo de desconexiones
+- Broadcast de mensajes
+- Pruebas unitarias y de integración
+
+## Cómo Ejecutar
+
+1. **Iniciar el Servidor**
+python server.py
+
+2. **Iniciar el Cliente**
+python client.py
 
 
-## Ejemplos de Uso
+## Funcionalidades
 
-### Ejemplo Básico
-```python
-# Servidor
-from server import ChatServer
-import threading
+### Servidor
+- Manejo de múltiples conexiones
+- Broadcast de mensajes
+- Control de nicknames únicos
+- Manejo de desconexiones abruptas
 
-server = ChatServer()
-server.start_server()
-server_thread = threading.Thread(target=server.receive)
-server_thread.daemon = True
-server_thread.start()
+### Cliente
+- Validación de nicknames
+- Validación de mensajes
+- Conexión/desconexión limpia
+- Interfaz de línea de comandos
 
-# Cliente
-from client import ChatClient
+## Pruebas
 
-client = ChatClient()
-connection = client.connect("Usuario1")
-client.send_message("¡Hola mundo!")
-```
+### Ejecutar Pruebas
 
+**Ejecutar Pruebas**
+python test_server.py
+python test_client.py
 
-### Validaciones
-```python
-# Nickname inválido
-try:
-    client.connect("")  # Lanzará ValueError
-except ValueError as e:
-    print("Error:", e)
+### Tipos de Pruebas
+1. **Pruebas Unitarias**
+   - Validación de nicknames
+   - Validación de mensajes
+   - Inicialización del servidor
 
-# Mensaje muy largo
-try:
-    client.send_message("a" * 2000)  # Lanzará ValueError
-except ValueError as e:
-    print("Error:", e)
-```
+2. **Pruebas de Integración**
+   - Comunicación entre múltiples clientes
+   - Manejo de desconexiones
+   - Broadcast de mensajes
+
+3. **Pruebas TDD**
+   - Validación de mensajes vacíos
+   - Validación de mensajes largos
+
+4. **Casos Positivos y Negativos**
+   - Conexiones exitosas/fallidas
+   - Nicknames válidos/inválidos
+   - Envío de mensajes exitoso/fallido
 
 ## Limitaciones y Validaciones
-### Nicknames:
-- No pueden estar vacíos
-- No pueden contener espacios
-- Máximo 20 caracteres
-- Deben ser únicos en el servidor
-### Mensajes:
-- No pueden estar vacíos
-- Tamaño máximo: 1024 bytes
-### Manejo de Errores
-- Conexiones fallidas
-- Nicknames duplicados
-- Desconexiones inesperadas
+
+- Nicknames:
+  - No pueden estar vacíos
+  - Máximo 20 caracteres
+  - Sin espacios
+  - No pueden repetirse
+
+- Mensajes:
+  - No pueden estar vacíos
+  - Máximo 1024 bytes
+  - Codificación UTF-8
+
+## Uso del Chat
+
+1. Inicia el servidor
+2. Conecta múltiples clientes
+3. Ingresa un nickname único
+4. Envía mensajes
+5. Escribe 'salir' para desconectarte
+
+## Manejo de Errores
+
+- Conexión fallida
+- Nickname en uso
 - Mensajes inválidos
-## Contribuir
-1. Fork el repositorio
-2. Crea una rama para tu feature (git checkout -b feature/AmazingFeature)
-3. Commit tus cambios (git commit -m 'Add some AmazingFeature')
-4. Push a la rama (git push origin feature/AmazingFeature)
-5. Abre un Pull Request
+- Desconexiones abruptas
+
+## Desarrollo y Pruebas
+
+El proyecto sigue principios de:
+- TDD (Test-Driven Development)
+- Pruebas unitarias
+- Pruebas de integración
+- Manejo de casos límite
+
+
+## Pruebas
+
+Para ejecutar las pruebas, se puede utilizar el comando `pytest` en el directorio raíz del proyecto.
+pytest
+
+
